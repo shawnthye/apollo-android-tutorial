@@ -1,14 +1,16 @@
 package com.example.rocketreserver
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.apollographql.apollo.coroutines.toFlow
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.retryWhen
 import kotlinx.coroutines.launch
+
+const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,9 +21,12 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             apolloClient(this@MainActivity).subscribe(TripsBookedSubscription()).toFlow()
-                .retryWhen { _, attempt ->
-                    delay(attempt * 1000)
-                    true
+                // .retryWhen { _, attempt ->
+                //     delay(attempt * 1000)
+                //     true
+                // }
+                .catch {
+                    Log.e(TAG, "", it)
                 }
                 .collect {
                     val text = when (val trips = it.data?.tripsBooked) {
