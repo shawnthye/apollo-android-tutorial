@@ -10,14 +10,13 @@ object User {
     private fun preferences(context: Context): SharedPreferences {
         val masterKeyAlias: String = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
-        val sharedPreferences: SharedPreferences = EncryptedSharedPreferences.create(
+        return EncryptedSharedPreferences.create(
             "secret_shared_prefs",
             masterKeyAlias,
             context,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
-        return sharedPreferences
     }
 
     fun getToken(context: Context): String? {
