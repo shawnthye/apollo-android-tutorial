@@ -11,4 +11,6 @@
     <string name="tripCancelled">A trip has been cancelled</string>
     <string name="subscriptionError">Oops, something wrong happened</string>
     <string name="error_protocol">Oh no… A protocol error happened</string>
+
+    <string name="rocket_name_template">🚀 %1$s %2$s</string>
 </resources>

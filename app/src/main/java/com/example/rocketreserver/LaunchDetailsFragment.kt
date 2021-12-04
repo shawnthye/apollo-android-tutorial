@@ -16,7 +16,7 @@ import com.example.rocketreserver.databinding.LaunchDetailsFragmentBinding
 class LaunchDetailsFragment : Fragment() {
 
     private lateinit var binding: LaunchDetailsFragmentBinding
-    val args: LaunchDetailsFragmentArgs by navArgs()
+    private val args: LaunchDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +62,11 @@ class LaunchDetailsFragment : Fragment() {
             binding.site.text = launch.site
             binding.missionName.text = launch.mission?.name
             val rocket = launch.rocket
-            binding.rocketName.text = "🚀 ${rocket?.name} ${rocket?.type}"
+            binding.rocketName.text = getString(
+                R.string.rocket_name_template,
+                rocket?.name,
+                rocket?.type
+            )
 
             configureButton(launch.isBooked)
         }
